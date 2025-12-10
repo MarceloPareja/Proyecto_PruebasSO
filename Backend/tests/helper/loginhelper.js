@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../app'); 
+const app = require('../../server'); 
 
 let authToken = '';
 
@@ -7,7 +7,7 @@ const loginAndGetToken = async () => {
   if (authToken) return authToken; 
 
   const response = await request(app)
-    .post('/account/login')
+    .post('/legalsystem/account/login')
     .send({
       email: 'testuser@espe.edu.ec',
       password: '123456'

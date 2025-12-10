@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../app'); 
+const app = require('../../server'); 
 const path = require('path');
 const { loginAndGetToken } = require('../helper/loginhelper');
 
