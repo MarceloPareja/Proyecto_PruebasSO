@@ -9,8 +9,8 @@ const loginAndGetToken = async () => {
   const response = await request(app)
     .post('/legalsystem/account/login')
     .send({
-      email: 'testuser@espe.edu.ec',
-      password: '123456'
+      email: 'testuser@gmail.com',
+      password: 'test1234'
     });
 
   if (response.status !== 200) {
