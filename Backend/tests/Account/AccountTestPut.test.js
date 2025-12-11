@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../../server'); 
+const app = require('../../app'); 
 const { loginAndGetToken } = require('../helper/loginhelper');
 describe('Account API Tests Put', () => {
 let authToken = '';

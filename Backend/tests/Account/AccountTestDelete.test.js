@@ -1,13 +1,13 @@
 const request = require('supertest');
 const app = require('../../app'); 
-const mongoose = require('mongoose');
 const { loginAndGetToken } = require('../helper/loginhelper');
+const { openDBConnection, closeDBConnection } = require('../helper/dbHelper');
 
 describe('Account API Tests Delete', () => {
 let authToken = '';
 
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await openDBConnection();
    authToken = await loginAndGetToken();
   });
 
@@ -18,8 +18,9 @@ let authToken = '';
     expect(response.statusCode).toBe(200);
     expect(response.body.deletedCount).toBe(1); 
   });
+
   
   afterAll(async () => {
-    await mongoose.connection.close();
+    closeDBConnection();
   });
 });
