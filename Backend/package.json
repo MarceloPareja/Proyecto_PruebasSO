@@ -3,11 +3,31 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+ "test:profile": "npm run test -- tests/Supertest/UserProfile/UProfileTests.test.js",
+  "test:account": "npm run test -- tests/Supertest/Account/AccountTests.test.js",
+  "test:appointment": "npm run test -- tests/Supertest/Appointments/appointmentRoutes.test.js",
+  "test:reminder": "npm run test -- tests/Supertest/Reminders/reminderRoutes.test.js",
+  "test:process": "npm run test -- tests/Supertest/Process/processRoutes.test.js tests/Supertest/Process/ProcessSearchTest.test.js",
+  "test:evidence": "npm run test -- tests/Supertest/Evidence/evidenceRoutes.test.js",
+  "test:legal": "npm run test -- tests/Supertest/LegalAdvice/legalAdviceRoutes.test.js",
+  "test:qualification": "npm run test -- tests/Supertest/Qualification/qualificationRoutes.test.js",
+  "test:observations": "npm run test -- tests/Supertest/Observations/observationRoutes.test.js",
+  "test:audit": "npm run test -- tests/Supertest/Auditory/auditoryLogRoutes.test.js",
+  "test:event": "npm run test -- tests/Supertest/Event/eventRoutes.test.js",
+    "test:all": "npm run test:account && npm run test:profile && npm run test:process && npm run test:legal && npm run test:qualif && npm run test:obs && npm run test:audit && npm run test:evidence && npm run test:appoint && npm run test:reminder && npm run test:event",
+    "k6:accounts": "k6 run k6/get-accounts.js",
+    "k6:process-post": "k6 run k6/post-process.js",
+    "k6:events": "k6 run k6/get-events.js",
+    "k6:evidence-upload": "k6 run k6/post-evidence-upload.js",
+    "k6:reminders": "k6 run k6/get-reminders.js",
+    "k6:mixed": "k6 run k6/mixed-load.js",
+    "k6:all": "npm run k6:accounts && npm run k6:process-post && npm run k6:events && npm run k6:evidence-upload && npm run k6:reminders && npm run k6:mixed",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --detectOpenHandles --forceExit",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "lint": "eslint . --ext .js",
+    "test": "dotenv -e webback.env -- cross-env NODE_ENV=test jest --detectOpenHandles --forceExit",
+    "test:watch": "dotenv -e webback.env -- cross-env NODE_ENV=test jest --watchAll --detectOpenHandles",
+    "test:coverage": "dotenv -e webback.env -- cross-env NODE_ENV=test jest --coverage --detectOpenHandles --forceExit"
   },
   "jest": {
     "testEnvironment": "node",
@@ -23,7 +43,13 @@
         "lines": 80,
         "statements": 80
       }
-    }
+    },
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)",
+      "tests/Supertest/**/*.test.[jt]s?(x)",          
+      "tests/Supertest/**/?(*.)test.[jt]s?(x)"          
+    ]
   },
   "keywords": [],
   "author": "Bryan Quispe",
@@ -52,6 +78,8 @@
     "supertest": "^7.1.4"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
+    "dotenv-cli": "^11.0.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.10"
   }
