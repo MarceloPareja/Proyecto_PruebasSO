@@ -127,8 +127,11 @@ router.post('/appointment/:id/reminder', authenticateToken, async (req, res) => 
     res.status(400).json({ message: 'Error, no se pueden crear recordatorios para menos de 1 día antes' });
   } else {
     try {
-      await controller.setReminder(req.params.id, req.body.title, numberOfDaysBefore);
-      res.status(201).json({ message: 'Recordatorio creado con éxito' });
+   
+      const reminder = await controller.setReminder(req.params.id, req.body.title, numberOfDaysBefore);
+      res.status(201).json({ message: 'Recordatorio creado con éxito',
+        reminder
+       });
     } catch (err) {
       console.log("Server Error, failed to create reminder!");
       console.error("Error details: "+err.message);
